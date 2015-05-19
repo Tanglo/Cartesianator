@@ -8,11 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		E50400701B0B0A1B00DFB0D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E504006F1B0B0A1B00DFB0D8 /* AppDelegate.swift */; };
-		E50400721B0B0A1B00DFB0D8 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50400711B0B0A1B00DFB0D8 /* Document.swift */; };
-		E50400751B0B0A1B00DFB0D8 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50400731B0B0A1B00DFB0D8 /* Document.xib */; };
+		E50400721B0B0A1B00DFB0D8 /* CartDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50400711B0B0A1B00DFB0D8 /* CartDocument.swift */; };
+		E50400751B0B0A1B00DFB0D8 /* CartDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50400731B0B0A1B00DFB0D8 /* CartDocument.xib */; };
 		E50400771B0B0A1B00DFB0D8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E50400761B0B0A1B00DFB0D8 /* Images.xcassets */; };
 		E504007A1B0B0A1B00DFB0D8 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50400781B0B0A1B00DFB0D8 /* MainMenu.xib */; };
 		E50400861B0B0A1B00DFB0D8 /* CartesianatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50400851B0B0A1B00DFB0D8 /* CartesianatorTests.swift */; };
+		E50400911B0B0C8800DFB0D8 /* CartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50400901B0B0C8800DFB0D8 /* CartData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,13 +30,14 @@
 		E504006A1B0B0A1B00DFB0D8 /* Cartesianator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cartesianator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E504006E1B0B0A1B00DFB0D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E504006F1B0B0A1B00DFB0D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E50400711B0B0A1B00DFB0D8 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
-		E50400741B0B0A1B00DFB0D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Document.xib; sourceTree = "<group>"; };
+		E50400711B0B0A1B00DFB0D8 /* CartDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartDocument.swift; sourceTree = "<group>"; };
+		E50400741B0B0A1B00DFB0D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CartDocument.xib; sourceTree = "<group>"; };
 		E50400761B0B0A1B00DFB0D8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E50400791B0B0A1B00DFB0D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		E504007F1B0B0A1B00DFB0D8 /* CartesianatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CartesianatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E50400841B0B0A1B00DFB0D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E50400851B0B0A1B00DFB0D8 /* CartesianatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartesianatorTests.swift; sourceTree = "<group>"; };
+		E50400901B0B0C8800DFB0D8 /* CartData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,8 +80,9 @@
 			isa = PBXGroup;
 			children = (
 				E504006F1B0B0A1B00DFB0D8 /* AppDelegate.swift */,
-				E50400711B0B0A1B00DFB0D8 /* Document.swift */,
-				E50400731B0B0A1B00DFB0D8 /* Document.xib */,
+				E50400711B0B0A1B00DFB0D8 /* CartDocument.swift */,
+				E50400731B0B0A1B00DFB0D8 /* CartDocument.xib */,
+				E50400901B0B0C8800DFB0D8 /* CartData.swift */,
 				E50400761B0B0A1B00DFB0D8 /* Images.xcassets */,
 				E50400781B0B0A1B00DFB0D8 /* MainMenu.xib */,
 				E504006D1B0B0A1B00DFB0D8 /* Supporting Files */,
@@ -193,7 +196,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E50400751B0B0A1B00DFB0D8 /* Document.xib in Resources */,
+				E50400751B0B0A1B00DFB0D8 /* CartDocument.xib in Resources */,
 				E50400771B0B0A1B00DFB0D8 /* Images.xcassets in Resources */,
 				E504007A1B0B0A1B00DFB0D8 /* MainMenu.xib in Resources */,
 			);
@@ -229,8 +232,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E50400721B0B0A1B00DFB0D8 /* Document.swift in Sources */,
+				E50400721B0B0A1B00DFB0D8 /* CartDocument.swift in Sources */,
 				E50400701B0B0A1B00DFB0D8 /* AppDelegate.swift in Sources */,
+				E50400911B0B0C8800DFB0D8 /* CartData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,12 +257,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		E50400731B0B0A1B00DFB0D8 /* Document.xib */ = {
+		E50400731B0B0A1B00DFB0D8 /* CartDocument.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				E50400741B0B0A1B00DFB0D8 /* Base */,
 			);
-			name = Document.xib;
+			name = CartDocument.xib;
 			sourceTree = "<group>";
 		};
 		E50400781B0B0A1B00DFB0D8 /* MainMenu.xib */ = {
