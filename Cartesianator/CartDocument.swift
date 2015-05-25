@@ -7,9 +7,13 @@
 //
 
 import Cocoa
+import LabBot
 
 class CartDocument: NSDocument {
     var data = CartData()
+    @IBOutlet var scrollView: NSScrollView?
+    var imageView = LBImageView(frame: NSRect(x: 0.0, y: 0.0, width: 1.0, height: 1.0))
+    var currentImage = 0
 
     override init() {
         super.init()
@@ -20,6 +24,7 @@ class CartDocument: NSDocument {
     override func windowControllerDidLoadNib(aController: NSWindowController) {
         super.windowControllerDidLoadNib(aController)
         // Add any code here that needs to be executed once the windowController has loaded the document's window.
+        scrollView!.documentView = imageView
         let openPanel = NSOpenPanel()
         openPanel.canChooseDirectories = true
         openPanel.canChooseFiles = false
@@ -27,7 +32,9 @@ class CartDocument: NSDocument {
         data.imageDirectoryURL = openPanel.URL!
         let urlArray = data.arrayOfImageFileNames()
         if urlArray != nil {
+            data.willChangeValueForKey("imageURLCount")
             data.imageURLArray = urlArray!
+            data.didChangeValueForKey("imageURLCount")
         }
     }
 
@@ -62,7 +69,21 @@ class CartDocument: NSDocument {
         outError.memory = NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
         return false
     }
-
+    
+    @IBAction func advanceImage(sender: AnyObject){
+        if data.imageURLArray.count > 0 {
+            if data.imageURLArray.count > currentImage {
+                self.willChangeValueForKey("currentImage")
+                currentImage++
+                self.didChangeValueForKey("currentImage")
+                imageView.image = NSImage(byReferencingURL:data.imageURLArray[currentImage-1])
+                imageView.needsDisplay = true
+            } else {
+                imageView.image = nil
+                imageView.needsDisplay = true
+            }
+        }
+    }
 
 }
 

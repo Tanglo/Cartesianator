@@ -51,5 +51,13 @@ class CartData: NSObject, NSCoding {
         }
         return nil
     }
+    
+    override func valueForKey(key: String) -> AnyObject? {
+        if key == "imageURLCount" {
+            return imageURLArray.count
+        }
+        super.valueForKey(key)
+        return nil
+    }
 
 }
