@@ -7,10 +7,14 @@
 //
 
 import Cocoa
+import LabBot
 
 class CartData: NSObject, NSCoding {
     var imageDirectoryURL: NSURL
     var imageURLArray: [NSURL]
+    var xCalCoeffs = [0.0, 1.0]
+    var yCalCoeffs = [0.0, 1.0]
+    var calibrationPoints = [LBCalibrationPair]()
     
     override init(){
         var homePath = "~"
@@ -23,11 +27,17 @@ class CartData: NSObject, NSCoding {
     required init(coder aDecoder: NSCoder) {
         imageDirectoryURL = aDecoder.decodeObjectForKey("imageDirectoryURL") as! NSURL
         imageURLArray = aDecoder.decodeObjectForKey("imageURLArray") as! [NSURL]
+        xCalCoeffs = aDecoder.decodeObjectForKey("xCalCoeffs") as! [Double]
+        yCalCoeffs = aDecoder.decodeObjectForKey("yCalCoeffs") as! [Double]
+        calibrationPoints = aDecoder.decodeObjectForKey("calibrationPoints") as! [LBCalibrationPair]
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(imageDirectoryURL, forKey: "imageDirectoryURL")
         aCoder.encodeObject(imageURLArray, forKey: "imageURLArray")
+        aCoder.encodeObject(xCalCoeffs, forKey: "xCalCoeffs")
+        aCoder.encodeObject(yCalCoeffs, forKey: "yCalCoeffs")
+        aCoder.encodeObject(calibrationPoints, forKey: "calibrationPoints")
     }
     
     func arrayOfImageFileNames() -> [NSURL]?{
