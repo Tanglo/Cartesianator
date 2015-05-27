@@ -21,28 +21,26 @@ class CartDocument: NSDocument {
     var firstCalibrationPair: LBCalibratedPair?
     var secondCalibrationPair: LBCalibratedPair?
 
-    override init() {
-        super.init()
-        // Add your subclass-specific initialization here.
-        
-    }
-
     override func windowControllerDidLoadNib(aController: NSWindowController) {
         super.windowControllerDidLoadNib(aController)
-        // Add any code here that needs to be executed once the windowController has loaded the document's window.
+
         scrollView!.documentView = imageView
-        let openPanel = NSOpenPanel()
-        openPanel.canChooseDirectories = true
-        openPanel.canChooseFiles = false
-        let result = openPanel.runModal()
-        if result == NSModalResponseOK {
-            data.imageDirectoryURL = openPanel.URL!
-            let urlArray = data.arrayOfImageFileNames()
-            if urlArray != nil {
-                data.willChangeValueForKey("imageURLCount")
-                data.imageURLArray = urlArray!
-                data.didChangeValueForKey("imageURLCount")
+        if data.newFile {
+            let openPanel = NSOpenPanel()
+            openPanel.canChooseDirectories = true
+            openPanel.canChooseFiles = false
+            let result = openPanel.runModal()
+            if result == NSModalResponseOK {
+                data.imageDirectoryURL = openPanel.URL!
+                let urlArray = data.arrayOfImageFileNames()
+                if urlArray != nil {
+                    data.willChangeValueForKey("imageURLCount")
+                    data.imageURLArray = urlArray!
+                    data.didChangeValueForKey("imageURLCount")
+                    clearMeasurements()
+                }
             }
+            data.newFile = false
         }
     }
 
@@ -51,24 +49,16 @@ class CartDocument: NSDocument {
     }
 
     override var windowNibName: String? {
-        // Returns the nib file name of the document
-        // If you need to use a subclass of NSWindowController or if your document supports multiple NSWindowControllers, you should remove this property and override -makeWindowControllers instead.
         return "CartDocument"
     }
 
     override func dataOfType(typeName: String, error outError: NSErrorPointer) -> NSData? {
-        // Insert code here to write your document to data of the specified type. If outError != nil, ensure that you create and set an appropriate error when returning nil.
-        // You can also choose to override fileWrapperOfType:error:, writeToURL:ofType:error:, or writeToURL:ofType:forSaveOperation:originalContentsURL:error: instead.
         outError.memory = NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
         return NSKeyedArchiver.archivedDataWithRootObject(data)
     }
 
-    override func readFromData(data: NSData, ofType typeName: String, error outError: NSErrorPointer) -> Bool {
-        // Insert code here to read your document from the given data of the specified type. If outError != nil, ensure that you create and set an appropriate error when returning false.
-        // You can also choose to override readFromFileWrapper:ofType:error: or readFromURL:ofType:error: instead.
-        // If you override either of these, you should also override -isEntireFileLoaded to return NO if the contents are lazily loaded.
-        
-        let newData: AnyObject? = NSKeyedUnarchiver.unarchiveObjectWithData(data)    //testData)
+    override func readFromData(data: NSData, ofType typeName: String, error outError: NSErrorPointer) -> Bool {       
+        let newData: AnyObject? = NSKeyedUnarchiver.unarchiveObjectWithData(data)
         if let testData = newData as? CartData {
             self.data = newData! as! CartData
             return true
@@ -94,6 +84,42 @@ class CartDocument: NSDocument {
         }
     }
     
+    @IBAction func recordMeasurement(sender: AnyObject){
+        if currentImage > 0 {
+            let rawPoint = imageView.markerLocation
+            let calibratedPoint = LBPoint(x: rawPoint.x * data.xCalCoeffs[1] + data.xCalCoeffs[0], y: rawPoint.y * data.yCalCoeffs[1] + data.yCalCoeffs[0])
+            data.measurements[currentImage-1] = LBCalibratedPair(raw: rawPoint, calibrated: calibratedPoint)
+        } else {
+            NSBeep()
+        }
+    }
+    
+    @IBAction func deleteData(sender: AnyObject){
+        let alert = NSAlert()
+        alert.messageText = "Warning: Measurements will be lost"
+        alert.addButtonWithTitle("Wait!")
+        alert.addButtonWithTitle("Do it.")
+        alert.informativeText = "If you go ahead with this you will have to measure your data again."
+        alert.beginSheetModalForWindow((windowControllers[0].window as! NSWindow), completionHandler: {
+            (response: NSModalResponse) -> Void in
+            if response == 1001 {
+                self.clearMeasurements()
+            }
+        })
+    }
+    
+    func clearMeasurements() {
+        data.measurements = [LBCalibratedPair](count: data.imageURLArray.count, repeatedValue: LBCalibratedPair(raw: LBPoint(x: Double.NaN, y: Double.NaN), calibrated: LBPoint(x: Double.NaN, y: Double.NaN)))
+    }
+    
+    @IBAction func exportDataToCSV(sender: AnyObject){
+        println("X - m = \(data.xCalCoeffs[1]), C = \(data.xCalCoeffs[0])")
+        println("X - m = \(data.yCalCoeffs[1]), C = \(data.yCalCoeffs[0)")
+        for i in 0..<data.measurements.count {
+            println("\(i+1). raw: \(data.measurements[i].raw.x),\(data.measurements[i].raw.y) - calibrated: \(data.measurements[i].calibrated.x),\(data.measurements[i].calibrated.y)")
+        }
+    }
+    
     @IBAction func loadImage(sender: AnyObject){
         let openPanel = NSOpenPanel()
         openPanel.canChooseDirectories = false
@@ -109,9 +135,19 @@ class CartDocument: NSDocument {
     }
     
     @IBAction func resetCalibration(sender: AnyObject){
-        data.calibrationPoints.removeAll(keepCapacity: false)
-        data.xCalCoeffs = [0.0,1.0]
-        data.yCalCoeffs = [0.0,1.0]
+        let alert = NSAlert()
+        alert.messageText = "Warning: Calibration data will be lost"
+        alert.addButtonWithTitle("Wait!")
+        alert.addButtonWithTitle("Do it.")
+        alert.informativeText = "If you go ahead with this you will not be able to make more measurements with the current calibration."
+        alert.beginSheetModalForWindow((windowControllers[0].window as! NSWindow), completionHandler: {
+            (response: NSModalResponse) -> Void in
+            if response == 1001 {
+                self.data.calibrationPoints.removeAll(keepCapacity: false)
+                self.data.xCalCoeffs = [0.0,1.0]
+                self.data.yCalCoeffs = [0.0,1.0]
+            }
+            })
     }
     
     @IBAction func setCalibrationPoint(sender: AnyObject){
@@ -128,7 +164,6 @@ class CartDocument: NSDocument {
     }
     
     @IBAction func calibrate(sender: AnyObject){
-        //need to select which calibrations points to use if there are more than 2
         if data.calibrationPoints.count >= 2 {
             if data.calibrationPoints.count == 2 {
                 firstCalibrationPair = data.calibrationPoints[0]
@@ -180,13 +215,13 @@ class CartDocument: NSDocument {
             let offset = firstCalibrationPair!.calibrated.x - gradient * firstCalibrationPair!.raw.x
             data.xCalCoeffs[0] = offset
             data.xCalCoeffs[1] = gradient
-//            println("m = \(gradient), C = \(offset)")
+//            println("X - m = \(gradient), C = \(offset)")
         } else {
             let gradient = (firstCalibrationPair!.calibrated.y - secondCalibrationPair!.calibrated.y) / (firstCalibrationPair!.raw.y - secondCalibrationPair!.raw.y)
             let offset = firstCalibrationPair!.calibrated.y - gradient * firstCalibrationPair!.raw.y
             data.yCalCoeffs[0] = offset
             data.yCalCoeffs[1] = gradient
-//            println("m = \(gradient), C = \(offset)")
+//            println("Y - m = \(gradient), C = \(offset)")
         }
     }
 }

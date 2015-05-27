@@ -139,6 +139,36 @@
                             <binding destination="-2" name="value" keyPath="self.currentImage" id="1kH-ca-Icu"/>
                         </connections>
                     </textField>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QcF-Nw-Flb">
+                        <rect key="frame" x="358" y="286" width="164" height="32"/>
+                        <buttonCell key="cell" type="push" title="Record measurement" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="oam-96-bSa">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="recordMeasurement:" target="-2" id="POp-rc-jFD"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mkS-Ml-K9M">
+                        <rect key="frame" x="358" y="253" width="164" height="32"/>
+                        <buttonCell key="cell" type="push" title="Delete data" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ot9-pt-lf1">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="deleteData:" target="-2" id="Kfv-UZ-4fM"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q5W-3V-nG9">
+                        <rect key="frame" x="358" y="220" width="164" height="32"/>
+                        <buttonCell key="cell" type="push" title="Save Data as .csv" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="O2S-Sf-5SD">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="exportDataToCSV:" target="-2" id="NRD-6J-GfJ"/>
+                        </connections>
+                    </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VAI-uj-dOF">
                         <rect key="frame" x="358" y="145" width="164" height="32"/>
                         <constraints>

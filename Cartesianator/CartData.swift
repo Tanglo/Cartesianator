@@ -15,6 +15,9 @@ class CartData: NSObject, NSCoding {
     var xCalCoeffs = [0.0, 1.0]
     var yCalCoeffs = [0.0, 1.0]
     var calibrationPoints = [LBCalibratedPair]()
+    var rawMeasurements = [LBPoint]()
+    var measurements = [LBCalibratedPair]()
+    var newFile = true
     
     override init(){
         var homePath = "~"
@@ -30,6 +33,8 @@ class CartData: NSObject, NSCoding {
         xCalCoeffs = aDecoder.decodeObjectForKey("xCalCoeffs") as! [Double]
         yCalCoeffs = aDecoder.decodeObjectForKey("yCalCoeffs") as! [Double]
         calibrationPoints = aDecoder.decodeObjectForKey("calibrationPoints") as! [LBCalibratedPair]
+        measurements = aDecoder.decodeObjectForKey("measurements") as! [LBCalibratedPair]
+        newFile = aDecoder.decodeBoolForKey("newFile")
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
@@ -38,6 +43,8 @@ class CartData: NSObject, NSCoding {
         aCoder.encodeObject(xCalCoeffs, forKey: "xCalCoeffs")
         aCoder.encodeObject(yCalCoeffs, forKey: "yCalCoeffs")
         aCoder.encodeObject(calibrationPoints, forKey: "calibrationPoints")
+        aCoder.encodeObject(measurements, forKey: "measurements")
+        aCoder.encodeBool(newFile, forKey: "newFile")
     }
     
     func arrayOfImageFileNames() -> [NSURL]?{
