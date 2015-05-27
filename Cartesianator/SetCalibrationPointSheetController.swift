@@ -9,12 +9,13 @@
 import Cocoa
 import LabBot
 
-class CalibrationSheetController: NSWindowController {
+class SetCalibrationPointSheetController: NSWindowController{
     @IBOutlet var xField: NSTextField?
     @IBOutlet var yField: NSTextField?
+    @IBOutlet var okButtonCell: NSButtonCell?
 
     override var windowNibName: String! {
-        return "CalibrationSheet"
+        return "SetCalibrationPointSheet"
     }
     
     override func windowDidLoad() {
@@ -23,6 +24,8 @@ class CalibrationSheetController: NSWindowController {
         // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
         xField!.doubleValue = 0.0
         yField!.doubleValue = 0.0
+        xField!.becomeFirstResponder()
+        window!.setDefaultButtonCell(okButtonCell!)
     }
     
     @IBAction func endCalibrationSheet(sender: AnyObject){

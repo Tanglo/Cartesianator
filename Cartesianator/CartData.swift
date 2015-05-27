@@ -14,7 +14,7 @@ class CartData: NSObject, NSCoding {
     var imageURLArray: [NSURL]
     var xCalCoeffs = [0.0, 1.0]
     var yCalCoeffs = [0.0, 1.0]
-    var calibrationPoints = [LBCalibrationPair]()
+    var calibrationPoints = [LBCalibratedPair]()
     
     override init(){
         var homePath = "~"
@@ -29,7 +29,7 @@ class CartData: NSObject, NSCoding {
         imageURLArray = aDecoder.decodeObjectForKey("imageURLArray") as! [NSURL]
         xCalCoeffs = aDecoder.decodeObjectForKey("xCalCoeffs") as! [Double]
         yCalCoeffs = aDecoder.decodeObjectForKey("yCalCoeffs") as! [Double]
-        calibrationPoints = aDecoder.decodeObjectForKey("calibrationPoints") as! [LBCalibrationPair]
+        calibrationPoints = aDecoder.decodeObjectForKey("calibrationPoints") as! [LBCalibratedPair]
     }
     
     func encodeWithCoder(aCoder: NSCoder) {

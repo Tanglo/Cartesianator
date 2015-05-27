@@ -4,8 +4,9 @@
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7702"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="CalibrationSheetController" customModule="Cartesianator" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="SetCalibrationPointSheetController" customModule="Cartesianator" customModuleProvider="target">
             <connections>
+                <outlet property="okButtonCell" destination="2VV-0s-hVh" id="a7z-lD-XdS"/>
                 <outlet property="window" destination="sDR-HR-nTc" id="7L4-HJ-XtW"/>
                 <outlet property="xField" destination="3hF-j2-XpE" id="Aas-qy-DTY"/>
                 <outlet property="yField" destination="PEi-e9-WbK" id="HUt-iH-rfu"/>

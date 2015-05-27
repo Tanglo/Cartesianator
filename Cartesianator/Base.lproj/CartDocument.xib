@@ -96,41 +96,13 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VAI-uj-dOF">
-                        <rect key="frame" x="358" y="112" width="164" height="32"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="21" id="MNp-JC-z3E"/>
-                            <constraint firstAttribute="width" constant="152" id="jeI-j2-Y9b"/>
-                        </constraints>
-                        <buttonCell key="cell" type="push" title="Load image" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Vls-SM-xiY">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="loadImage:" target="-2" id="U6k-Hu-6c4"/>
-                        </connections>
-                    </button>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YXX-Do-Cmx">
-                        <rect key="frame" x="358" y="46" width="164" height="32"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="152" id="20A-XI-dEq"/>
-                            <constraint firstAttribute="height" constant="21" id="25r-mS-SGM"/>
-                        </constraints>
-                        <buttonCell key="cell" type="push" title="Set calibration point" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gE4-04-aG0">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="setCalibrationPoint:" target="-2" id="Ehz-vu-M96"/>
-                        </connections>
-                    </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="66X-v1-DFp">
                         <rect key="frame" x="358" y="13" width="164" height="32"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="152" id="XHr-1B-BKH"/>
-                            <constraint firstAttribute="height" constant="21" id="sEh-bf-FzS"/>
+                            <constraint firstAttribute="height" constant="21" id="Rey-Uf-VLg"/>
+                            <constraint firstAttribute="width" constant="152" id="kKW-nc-1Pd"/>
                         </constraints>
-                        <buttonCell key="cell" type="push" title="Calibrate" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4RK-W1-WFt">
+                        <buttonCell key="cell" type="push" title="Calibrate Y Axis" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4RK-W1-WFt">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -138,18 +110,18 @@
                             <action selector="calibrate:" target="-2" id="4cP-D7-4NB"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RTV-du-y5l">
-                        <rect key="frame" x="358" y="79" width="164" height="32"/>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jXS-2R-s4c">
+                        <rect key="frame" x="358" y="46" width="164" height="32"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="152" id="IYG-f5-8FM"/>
-                            <constraint firstAttribute="height" constant="21" id="Qh3-GX-mil"/>
+                            <constraint firstAttribute="width" constant="152" id="BVy-ri-b2D"/>
+                            <constraint firstAttribute="height" constant="21" id="cfY-Wz-Qjz"/>
                         </constraints>
-                        <buttonCell key="cell" type="push" title="Reset calibration" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="iJa-Y1-OZp">
+                        <buttonCell key="cell" type="push" title="Calibrate X Axis" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DdZ-xV-PND">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="resetCalibration:" target="-2" id="uSh-SA-FQ9"/>
+                            <action selector="calibrate:" target="-2" id="ww1-Lj-Wn6"/>
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8Zh-DI-wwO">
@@ -167,37 +139,82 @@
                             <binding destination="-2" name="value" keyPath="self.currentImage" id="1kH-ca-Icu"/>
                         </connections>
                     </textField>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VAI-uj-dOF">
+                        <rect key="frame" x="358" y="145" width="164" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="152" id="65f-cY-c2R"/>
+                            <constraint firstAttribute="height" constant="21" id="9Tg-DS-T8Q"/>
+                        </constraints>
+                        <buttonCell key="cell" type="push" title="Load image" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Vls-SM-xiY">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="loadImage:" target="-2" id="U6k-Hu-6c4"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YXX-Do-Cmx">
+                        <rect key="frame" x="358" y="79" width="164" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="152" id="JeR-Jp-HAJ"/>
+                            <constraint firstAttribute="height" constant="21" id="dnA-fe-152"/>
+                        </constraints>
+                        <buttonCell key="cell" type="push" title="Set calibration point" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gE4-04-aG0">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="setCalibrationPoint:" target="-2" id="Ehz-vu-M96"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RTV-du-y5l">
+                        <rect key="frame" x="358" y="112" width="164" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="152" id="UhH-F7-tnz"/>
+                            <constraint firstAttribute="height" constant="21" id="dGy-VH-bmM"/>
+                        </constraints>
+                        <buttonCell key="cell" type="push" title="Reset calibration" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="iJa-Y1-OZp">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="resetCalibration:" target="-2" id="uSh-SA-FQ9"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="eqe-kG-Cys" firstAttribute="top" secondItem="0CS-4c-zWp" secondAttribute="bottom" constant="8" id="0lG-Mb-n7a"/>
+                    <constraint firstItem="RTV-du-y5l" firstAttribute="leading" secondItem="Zj0-P9-Kxh" secondAttribute="trailing" constant="17" id="3LQ-yf-Dg0"/>
                     <constraint firstItem="8Zh-DI-wwO" firstAttribute="top" secondItem="0CS-4c-zWp" secondAttribute="bottom" constant="8" id="5IE-ZR-aux"/>
                     <constraint firstAttribute="trailing" secondItem="Zj0-P9-Kxh" secondAttribute="trailing" constant="189" id="6cs-fc-AL0"/>
+                    <constraint firstAttribute="trailing" secondItem="VAI-uj-dOF" secondAttribute="trailing" constant="20" id="7Ca-dj-FaA"/>
                     <constraint firstAttribute="trailing" secondItem="0CS-4c-zWp" secondAttribute="trailing" constant="20" id="8he-9p-v2D"/>
-                    <constraint firstItem="YXX-Do-Cmx" firstAttribute="leading" secondItem="Zj0-P9-Kxh" secondAttribute="trailing" constant="17" id="A7B-Tn-LRS"/>
-                    <constraint firstAttribute="trailing" secondItem="VAI-uj-dOF" secondAttribute="trailing" constant="20" id="C4m-W2-IEt"/>
+                    <constraint firstItem="YXX-Do-Cmx" firstAttribute="leading" secondItem="Zj0-P9-Kxh" secondAttribute="trailing" constant="17" id="9xE-MH-3Wg"/>
+                    <constraint firstAttribute="trailing" secondItem="66X-v1-DFp" secondAttribute="trailing" constant="20" id="I1C-1J-DpH"/>
                     <constraint firstItem="Gnd-Qh-Zce" firstAttribute="leading" secondItem="8Zh-DI-wwO" secondAttribute="trailing" constant="8" id="IWp-jK-ofg"/>
-                    <constraint firstItem="RTV-du-y5l" firstAttribute="top" secondItem="VAI-uj-dOF" secondAttribute="bottom" constant="12" id="JHR-A6-O1o"/>
+                    <constraint firstItem="VAI-uj-dOF" firstAttribute="leading" secondItem="Zj0-P9-Kxh" secondAttribute="trailing" constant="17" id="JD6-p8-Cv2"/>
                     <constraint firstItem="Gnd-Qh-Zce" firstAttribute="top" secondItem="0CS-4c-zWp" secondAttribute="bottom" constant="8" id="Moi-8h-HjZ"/>
-                    <constraint firstItem="RTV-du-y5l" firstAttribute="leading" secondItem="Zj0-P9-Kxh" secondAttribute="trailing" constant="17" id="O7t-8U-itX"/>
-                    <constraint firstItem="66X-v1-DFp" firstAttribute="top" secondItem="YXX-Do-Cmx" secondAttribute="bottom" constant="12" id="OGC-JA-fbW"/>
+                    <constraint firstAttribute="bottom" secondItem="66X-v1-DFp" secondAttribute="bottom" constant="20" id="NPl-tf-ndA"/>
                     <constraint firstItem="KQM-f1-V6d" firstAttribute="leading" secondItem="Zj0-P9-Kxh" secondAttribute="trailing" constant="17" id="PHZ-lb-anf"/>
-                    <constraint firstItem="66X-v1-DFp" firstAttribute="leading" secondItem="Zj0-P9-Kxh" secondAttribute="trailing" constant="17" id="QSS-cw-Ulf"/>
+                    <constraint firstItem="jXS-2R-s4c" firstAttribute="top" secondItem="YXX-Do-Cmx" secondAttribute="bottom" constant="12" id="Rr8-hT-aqj"/>
+                    <constraint firstItem="YXX-Do-Cmx" firstAttribute="top" secondItem="RTV-du-y5l" secondAttribute="bottom" constant="12" id="Sg1-nf-OGQ"/>
                     <constraint firstItem="8Zh-DI-wwO" firstAttribute="leading" secondItem="Zj0-P9-Kxh" secondAttribute="trailing" constant="17" id="TgL-uJ-Nie"/>
+                    <constraint firstAttribute="trailing" secondItem="YXX-Do-Cmx" secondAttribute="trailing" constant="20" id="UtL-Au-R1O"/>
                     <constraint firstAttribute="trailing" secondItem="eqe-kG-Cys" secondAttribute="trailing" constant="20" id="VFT-QH-XZF"/>
                     <constraint firstItem="eqe-kG-Cys" firstAttribute="leading" secondItem="Gnd-Qh-Zce" secondAttribute="trailing" constant="8" id="YY6-uW-HU1"/>
-                    <constraint firstItem="VAI-uj-dOF" firstAttribute="leading" secondItem="Zj0-P9-Kxh" secondAttribute="trailing" constant="17" id="bbM-1a-zOw"/>
-                    <constraint firstAttribute="trailing" secondItem="YXX-Do-Cmx" secondAttribute="trailing" constant="20" id="byE-Ne-3JE"/>
-                    <constraint firstAttribute="trailing" secondItem="66X-v1-DFp" secondAttribute="trailing" constant="20" id="dLu-Zh-gCv"/>
-                    <constraint firstAttribute="bottom" secondItem="VAI-uj-dOF" secondAttribute="bottom" constant="119" id="dzH-sH-i4g"/>
+                    <constraint firstItem="66X-v1-DFp" firstAttribute="leading" secondItem="Zj0-P9-Kxh" secondAttribute="trailing" constant="17" id="bv4-GC-ZcZ"/>
+                    <constraint firstItem="RTV-du-y5l" firstAttribute="top" secondItem="VAI-uj-dOF" secondAttribute="bottom" constant="12" id="gPF-fd-lGH"/>
+                    <constraint firstAttribute="trailing" secondItem="RTV-du-y5l" secondAttribute="trailing" constant="20" id="gU9-Sk-S26"/>
                     <constraint firstAttribute="bottom" secondItem="Zj0-P9-Kxh" secondAttribute="bottom" id="gh4-L5-SuV"/>
+                    <constraint firstItem="66X-v1-DFp" firstAttribute="top" secondItem="jXS-2R-s4c" secondAttribute="bottom" constant="12" id="goO-cW-1tU"/>
                     <constraint firstItem="0CS-4c-zWp" firstAttribute="leading" secondItem="Zj0-P9-Kxh" secondAttribute="trailing" constant="17" id="iHG-yV-6mP"/>
-                    <constraint firstItem="YXX-Do-Cmx" firstAttribute="top" secondItem="RTV-du-y5l" secondAttribute="bottom" constant="12" id="iXB-wI-NWI"/>
                     <constraint firstItem="KQM-f1-V6d" firstAttribute="top" secondItem="Gnd-Qh-Zce" secondAttribute="bottom" constant="8" id="jA2-PZ-WQ6"/>
                     <constraint firstItem="0CS-4c-zWp" firstAttribute="top" secondItem="gIp-Ho-8D9" secondAttribute="top" constant="20" id="pNC-Yl-N8w"/>
                     <constraint firstAttribute="trailing" secondItem="KQM-f1-V6d" secondAttribute="trailing" constant="20" id="rXv-Ni-ACz"/>
-                    <constraint firstAttribute="trailing" secondItem="RTV-du-y5l" secondAttribute="trailing" constant="20" id="sX7-Uh-Ozu"/>
                     <constraint firstItem="Zj0-P9-Kxh" firstAttribute="top" secondItem="gIp-Ho-8D9" secondAttribute="top" id="uNC-jW-6Zt"/>
+                    <constraint firstAttribute="trailing" secondItem="jXS-2R-s4c" secondAttribute="trailing" constant="20" id="vvE-8f-vLu"/>
                     <constraint firstItem="Zj0-P9-Kxh" firstAttribute="leading" secondItem="gIp-Ho-8D9" secondAttribute="leading" id="xHM-SM-23U"/>
+                    <constraint firstItem="jXS-2R-s4c" firstAttribute="leading" secondItem="Zj0-P9-Kxh" secondAttribute="trailing" constant="17" id="xLm-iX-xXc"/>
                 </constraints>
             </view>
             <connections>

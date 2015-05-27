@@ -15,8 +15,11 @@ class CartDocument: NSDocument {
     var imageView = LBImageView(frame: NSRect(x: 0.0, y: 0.0, width: 1.0, height: 1.0))
     var currentImage = 0
     @IBOutlet var fileNameField: NSTextField?
-    var calibrationSheetController: CalibrationSheetController?
+    var setCalibrationPointSheetController: SetCalibrationPointSheetController?
     var calibrationValue: LBPoint?
+    var calibrateAxisSheetController: CalibrateAxisSheetController?
+    var firstCalibrationPair: LBCalibratedPair?
+    var secondCalibrationPair: LBCalibratedPair?
 
     override init() {
         super.init()
@@ -114,16 +117,7 @@ class CartDocument: NSDocument {
     @IBAction func setCalibrationPoint(sender: AnyObject){
         let markerLocation = imageView.markerLocation
         if markerLocation.x >= 0 && markerLocation.y >= 0 {
-            if data.calibrationPoints.count < 2 {
-//                data.calibrationPoints.append(markerLocation)
-                showCalibrationSheet(windowControllers[0].window as! NSWindow)
-            } else {
-                let alert = NSAlert()
-                alert.messageText = "Two point linear calibration only"
-                alert.addButtonWithTitle("Really?")
-                alert.informativeText = "Currently you can only do a two point linear calibration and you already have two points set.  Push 'Calibrate' to calibrate with the existing points or 'Reset calibration' to start again."
-                alert.runModal()
-            }
+            showSetCalibrationPointSheet(windowControllers[0].window as! NSWindow)
         } else {
             let alert = NSAlert()
             alert.messageText = "Set a marker first"
@@ -134,31 +128,66 @@ class CartDocument: NSDocument {
     }
     
     @IBAction func calibrate(sender: AnyObject){
-        if data.calibrationPoints.count == 2 {
-            for calibrationPoint in data.calibrationPoints{
-                println("raw: \(calibrationPoint.raw.x),\(calibrationPoint.raw.y) calibrated: \(calibrationPoint.calibrated.x),\(calibrationPoint.calibrated.y)")
+        //need to select which calibrations points to use if there are more than 2
+        if data.calibrationPoints.count >= 2 {
+            if data.calibrationPoints.count == 2 {
+                firstCalibrationPair = data.calibrationPoints[0]
+                secondCalibrationPair = data.calibrationPoints[1]
+                doCalibrationFor(sender as! NSButton)
+            } else {
+                showCalibrateAxisSheet(windowControllers[0].window as! NSWindow, sender: sender as! NSButton)
             }
         } else {
             let alert = NSAlert()
             alert.messageText = "You don't have two calibration points"
             alert.addButtonWithTitle("Sorry")
-            alert.informativeText = "Currently you can only do a two point linear calibration and you don't have two points set.  Push 'Set calibration point' to add a point."
+            alert.informativeText = "You two points to do a linear calibration and you don't have two points set.  Push 'Set calibration point' to add a point."
             alert.runModal()
         }
     }
-    
-    func showCalibrationSheet(window: NSWindow){
-        if calibrationSheetController == nil {
+
+    func showSetCalibrationPointSheet(window: NSWindow){
+        if setCalibrationPointSheetController == nil {
             var objects: NSArray?
-            calibrationSheetController = CalibrationSheetController()
-            calibrationSheetController!.document = self
+            setCalibrationPointSheetController = SetCalibrationPointSheetController()
+            setCalibrationPointSheetController!.document = self
         }
-        windowControllers[0].window.beginSheet(calibrationSheetController!.window!, completionHandler: {
+        windowControllers[0].window.beginSheet(setCalibrationPointSheetController!.window!, completionHandler: {
             (response: NSModalResponse) -> Void in
             if response == NSModalResponseOK {
-                self.data.calibrationPoints.append(LBCalibrationPair(raw: self.imageView.markerLocation, calibrated: self.calibrationValue!))
+                self.data.calibrationPoints.append(LBCalibratedPair(raw: self.imageView.markerLocation, calibrated: self.calibrationValue!))
             }
         })
+    }
+    
+    func showCalibrateAxisSheet(window: NSWindow, sender: NSButton){
+        if calibrateAxisSheetController == nil {
+            var objects: NSArray?
+            calibrateAxisSheetController = CalibrateAxisSheetController()
+            calibrateAxisSheetController!.document = self
+        }
+        windowControllers[0].window.beginSheet(calibrateAxisSheetController!.window!, completionHandler: {
+            (response: NSModalResponse) -> Void in
+            if response == NSModalResponseOK {
+                self.doCalibrationFor(sender)
+            }
+        })
+    }
+    
+    func doCalibrationFor(sender: NSButton){
+        if sender.title == "Calibrate X Axis" {
+            let gradient = (firstCalibrationPair!.calibrated.x - secondCalibrationPair!.calibrated.x) / (firstCalibrationPair!.raw.x - secondCalibrationPair!.raw.x)
+            let offset = firstCalibrationPair!.calibrated.x - gradient * firstCalibrationPair!.raw.x
+            data.xCalCoeffs[0] = offset
+            data.xCalCoeffs[1] = gradient
+//            println("m = \(gradient), C = \(offset)")
+        } else {
+            let gradient = (firstCalibrationPair!.calibrated.y - secondCalibrationPair!.calibrated.y) / (firstCalibrationPair!.raw.y - secondCalibrationPair!.raw.y)
+            let offset = firstCalibrationPair!.calibrated.y - gradient * firstCalibrationPair!.raw.y
+            data.yCalCoeffs[0] = offset
+            data.yCalCoeffs[1] = gradient
+//            println("m = \(gradient), C = \(offset)")
+        }
     }
 }
 

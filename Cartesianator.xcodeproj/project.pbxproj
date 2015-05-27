@@ -15,8 +15,10 @@
 		E50400861B0B0A1B00DFB0D8 /* CartesianatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50400851B0B0A1B00DFB0D8 /* CartesianatorTests.swift */; };
 		E50400911B0B0C8800DFB0D8 /* CartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50400901B0B0C8800DFB0D8 /* CartData.swift */; };
 		E514B5161B12D179005B2B96 /* LabBot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E514B5151B12D179005B2B96 /* LabBot.framework */; };
-		E5E64E211B1442DE00898564 /* CalibrationSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5E64E201B1442DE00898564 /* CalibrationSheet.xib */; };
-		E5E64E231B144D6500898564 /* CalibrationSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E64E221B144D6500898564 /* CalibrationSheetController.swift */; };
+		E53943A71B156AA400F6FDF5 /* CalibrateAxisSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53943A51B156AA400F6FDF5 /* CalibrateAxisSheetController.swift */; };
+		E53943A81B156AA400F6FDF5 /* CalibrateAxisSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = E53943A61B156AA400F6FDF5 /* CalibrateAxisSheet.xib */; };
+		E5E64E211B1442DE00898564 /* SetCalibrationPointSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5E64E201B1442DE00898564 /* SetCalibrationPointSheet.xib */; };
+		E5E64E231B144D6500898564 /* SetCalibrationPointSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E64E221B144D6500898564 /* SetCalibrationPointSheetController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,8 +44,10 @@
 		E50400851B0B0A1B00DFB0D8 /* CartesianatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartesianatorTests.swift; sourceTree = "<group>"; };
 		E50400901B0B0C8800DFB0D8 /* CartData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartData.swift; sourceTree = "<group>"; };
 		E514B5151B12D179005B2B96 /* LabBot.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LabBot.framework; path = ../../../Library/Frameworks/LabBot.framework; sourceTree = "<group>"; };
-		E5E64E201B1442DE00898564 /* CalibrationSheet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalibrationSheet.xib; sourceTree = "<group>"; };
-		E5E64E221B144D6500898564 /* CalibrationSheetController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalibrationSheetController.swift; sourceTree = "<group>"; };
+		E53943A51B156AA400F6FDF5 /* CalibrateAxisSheetController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalibrateAxisSheetController.swift; sourceTree = "<group>"; };
+		E53943A61B156AA400F6FDF5 /* CalibrateAxisSheet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalibrateAxisSheet.xib; sourceTree = "<group>"; };
+		E5E64E201B1442DE00898564 /* SetCalibrationPointSheet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetCalibrationPointSheet.xib; sourceTree = "<group>"; };
+		E5E64E221B144D6500898564 /* SetCalibrationPointSheetController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetCalibrationPointSheetController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,8 +94,10 @@
 				E504006F1B0B0A1B00DFB0D8 /* AppDelegate.swift */,
 				E50400711B0B0A1B00DFB0D8 /* CartDocument.swift */,
 				E50400731B0B0A1B00DFB0D8 /* CartDocument.xib */,
-				E5E64E221B144D6500898564 /* CalibrationSheetController.swift */,
-				E5E64E201B1442DE00898564 /* CalibrationSheet.xib */,
+				E5E64E221B144D6500898564 /* SetCalibrationPointSheetController.swift */,
+				E5E64E201B1442DE00898564 /* SetCalibrationPointSheet.xib */,
+				E53943A51B156AA400F6FDF5 /* CalibrateAxisSheetController.swift */,
+				E53943A61B156AA400F6FDF5 /* CalibrateAxisSheet.xib */,
 				E50400901B0B0C8800DFB0D8 /* CartData.swift */,
 				E50400761B0B0A1B00DFB0D8 /* Images.xcassets */,
 				E50400781B0B0A1B00DFB0D8 /* MainMenu.xib */,
@@ -208,7 +214,8 @@
 			files = (
 				E50400751B0B0A1B00DFB0D8 /* CartDocument.xib in Resources */,
 				E50400771B0B0A1B00DFB0D8 /* Images.xcassets in Resources */,
-				E5E64E211B1442DE00898564 /* CalibrationSheet.xib in Resources */,
+				E53943A81B156AA400F6FDF5 /* CalibrateAxisSheet.xib in Resources */,
+				E5E64E211B1442DE00898564 /* SetCalibrationPointSheet.xib in Resources */,
 				E504007A1B0B0A1B00DFB0D8 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -243,10 +250,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E5E64E231B144D6500898564 /* CalibrationSheetController.swift in Sources */,
+				E5E64E231B144D6500898564 /* SetCalibrationPointSheetController.swift in Sources */,
 				E50400721B0B0A1B00DFB0D8 /* CartDocument.swift in Sources */,
 				E50400701B0B0A1B00DFB0D8 /* AppDelegate.swift in Sources */,
 				E50400911B0B0C8800DFB0D8 /* CartData.swift in Sources */,
+				E53943A71B156AA400F6FDF5 /* CalibrateAxisSheetController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
