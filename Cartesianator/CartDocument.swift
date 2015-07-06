@@ -20,6 +20,7 @@ class CartDocument: NSDocument {
     var calibrateAxisSheetController: CalibrateAxisSheetController?
     var firstCalibrationPair: LBCalibratedPair?
     var secondCalibrationPair: LBCalibratedPair?
+    @IBOutlet var advanceOnRecordCheckbox: NSButton?
 
     override func windowControllerDidLoadNib(aController: NSWindowController) {
         super.windowControllerDidLoadNib(aController)
@@ -90,6 +91,9 @@ class CartDocument: NSDocument {
             let rawPoint = imageView.markerLocation
             let calibratedPoint = LBPoint(x: rawPoint.x * data.xCalCoeffs[1] + data.xCalCoeffs[0], y: rawPoint.y * data.yCalCoeffs[1] + data.yCalCoeffs[0])
             data.measurements[currentImage-1] = LBCalibratedPair(raw: rawPoint, calibrated: calibratedPoint)
+            if advanceOnRecordCheckbox!.state == NSOnState {
+                self.advanceImage(self)
+            }
         } else {
             NSBeep()
         }
@@ -231,13 +235,11 @@ class CartDocument: NSDocument {
             let offset = firstCalibrationPair!.calibrated.x - gradient * firstCalibrationPair!.raw.x
             data.xCalCoeffs[0] = offset
             data.xCalCoeffs[1] = gradient
-//            println("X - m = \(gradient), C = \(offset)")
         } else {
             let gradient = (firstCalibrationPair!.calibrated.y - secondCalibrationPair!.calibrated.y) / (firstCalibrationPair!.raw.y - secondCalibrationPair!.raw.y)
             let offset = firstCalibrationPair!.calibrated.y - gradient * firstCalibrationPair!.raw.y
             data.yCalCoeffs[0] = offset
             data.yCalCoeffs[1] = gradient
-//            println("Y - m = \(gradient), C = \(offset)")
         }
     }
 }
