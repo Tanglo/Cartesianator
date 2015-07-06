@@ -21,10 +21,11 @@ class CartDocument: NSDocument {
     var firstCalibrationPair: LBCalibratedPair?
     var secondCalibrationPair: LBCalibratedPair?
     @IBOutlet var advanceOnRecordCheckbox: NSButton?
+    @IBOutlet var measurementsPerImageField: NSTextField?
 
     override func windowControllerDidLoadNib(aController: NSWindowController) {
         super.windowControllerDidLoadNib(aController)
-
+        measurementsPerImageField!.integerValue = 1
         scrollView!.documentView = imageView
         if data.newFile {
             let openPanel = NSOpenPanel()
@@ -33,13 +34,7 @@ class CartDocument: NSDocument {
             let result = openPanel.runModal()
             if result == NSModalResponseOK {
                 data.imageDirectoryURL = openPanel.URL!
-                let urlArray = data.arrayOfImageFileNames()
-                if urlArray != nil {
-                    data.willChangeValueForKey("imageURLCount")
-                    data.imageURLArray = urlArray!
-                    data.didChangeValueForKey("imageURLCount")
-                    clearMeasurements()
-                }
+                clearMeasurements()
             }
             data.newFile = false
         }
@@ -91,7 +86,6 @@ class CartDocument: NSDocument {
             let rawPoint = imageView.markerLocation
             let calibratedPoint = LBPoint(x: rawPoint.x * data.xCalCoeffs[1] + data.xCalCoeffs[0], y: rawPoint.y * data.yCalCoeffs[1] + data.yCalCoeffs[0])
             data.measurements[currentImage-1] = LBCalibratedPair(raw: rawPoint, calibrated: calibratedPoint)
-//            data.imageFilenames[currentImage-1] = fileNameField!.stringValue
             if advanceOnRecordCheckbox!.state == NSOnState {
                 self.advanceImage(self)
             }
@@ -115,16 +109,38 @@ class CartDocument: NSDocument {
     }
     
     func clearMeasurements() {
-        data.measurements = [LBCalibratedPair](count: data.imageURLArray.count, repeatedValue: LBCalibratedPair(raw: LBPoint(x: Double.NaN, y: Double.NaN), calibrated: LBPoint(x: Double.NaN, y: Double.NaN)))
+        let imageFilenames = data.arrayOfImageFileNames()
+        if imageFilenames != nil {
+            data.measurements = [LBCalibratedPair](count: data.imageURLArray.count*data.measurementsPerImage, repeatedValue: LBCalibratedPair(raw: LBPoint(x: Double.NaN, y: Double.NaN), calibrated: LBPoint(x: Double.NaN, y: Double.NaN)))
+            var newMeasurementIndexes = [Int]()
+            var newURLArray = [NSURL]()
+            var currIndex = 0
+            for i in 0..<imageFilenames!.count {
+                for j in 0..<data.measurementsPerImage {
+                    newMeasurementIndexes.append(j)
+                    newURLArray.append(imageFilenames![i])
+                }
+            }
+            data.measurementIndexes = newMeasurementIndexes
+            data.willChangeValueForKey("imageURLCount")
+            data.imageURLArray = newURLArray
+            data.didChangeValueForKey("imageURLCount")
+        } else {
+            let alert = NSAlert()
+            alert.messageText = "No filenames were found in the folder"
+            alert.addButtonWithTitle("Ok")
+            alert.informativeText = "Check that there are valid image files in the folder you opened."
+            alert.runModal()
+        }
     }
     
     @IBAction func exportDataToCSV(sender: AnyObject){
         var calibrationString = "axis,gradient,offset\n"
         calibrationString += "x,\(data.xCalCoeffs[1]),\(data.xCalCoeffs[0])\n"
         calibrationString += "y,\(data.yCalCoeffs[1]),\(data.yCalCoeffs[0)"
-        var dataString = "trial,filename,rawX,rawY,calibratedX,calibratedY\n"
+        var dataString = "trial,measurement,filename,rawX,rawY,calibratedX,calibratedY\n"
         for i in 0..<data.measurements.count {
-            dataString += "\(i),\(data.imageURLArray[i].lastPathComponent!),\(data.measurements[i].raw.x),\(data.measurements[i].raw.y),\(data.measurements[i].calibrated.x),\(data.measurements[i].calibrated.y)\n"
+            dataString += "\(i),\(data.measurementIndexes[i]),\(data.imageURLArray[i].lastPathComponent!),\(data.measurements[i].raw.x),\(data.measurements[i].raw.y),\(data.measurements[i].calibrated.x),\(data.measurements[i].calibrated.y)\n"
         }
         let savePanel = NSSavePanel()
         let result = savePanel.runModal()
@@ -269,6 +285,21 @@ class CartDocument: NSDocument {
                 data.yCalCoeffs[1] = NSString(string: yCalibration[1]).doubleValue
             }
         }
+    }
+    
+    @IBAction func changeMeasurementsPerImage(sender: AnyObject){
+        let alert = NSAlert()
+        alert.messageText = "Warning: Measurements will be lost"
+        alert.addButtonWithTitle("Wait!")
+        alert.addButtonWithTitle("Do it.")
+        alert.informativeText = "If you go ahead with this you will have to measure your data again."
+        alert.beginSheetModalForWindow((windowControllers[0].window as! NSWindow), completionHandler: {
+            (response: NSModalResponse) -> Void in
+            if response == 1001 {
+                self.data.measurementsPerImage = self.measurementsPerImageField!.integerValue
+                self.clearMeasurements()
+            }
+        })
     }
 }
 

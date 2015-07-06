@@ -17,7 +17,8 @@ class CartData: NSObject, NSCoding {
     var calibrationPoints = [LBCalibratedPair]()
     var rawMeasurements = [LBPoint]()
     var measurements = [LBCalibratedPair]()
-//    var imageFilenames = [String]()
+    var measurementIndexes = [Int]()
+    var measurementsPerImage = 1
     var newFile = true
     
     override init(){
@@ -35,7 +36,8 @@ class CartData: NSObject, NSCoding {
         yCalCoeffs = aDecoder.decodeObjectForKey("yCalCoeffs") as! [Double]
         calibrationPoints = aDecoder.decodeObjectForKey("calibrationPoints") as! [LBCalibratedPair]
         measurements = aDecoder.decodeObjectForKey("measurements") as! [LBCalibratedPair]
-//        imageFilenames = aDecoder.decodeObjectForKey("imageFilenames") as! [String]
+        measurementIndexes = aDecoder.decodeObjectForKey("measurementIndexes") as! [Int]
+        measurementsPerImage = aDecoder.decodeIntegerForKey("measurementsPerImage")
         newFile = aDecoder.decodeBoolForKey("newFile")
     }
     
@@ -46,7 +48,8 @@ class CartData: NSObject, NSCoding {
         aCoder.encodeObject(yCalCoeffs, forKey: "yCalCoeffs")
         aCoder.encodeObject(calibrationPoints, forKey: "calibrationPoints")
         aCoder.encodeObject(measurements, forKey: "measurements")
-//        aCoder.encodeObject(imageFilenames, forKey: "imageFilenames")
+        aCoder.encodeObject(measurementIndexes, forKey: "measurementIndexes")
+        aCoder.encodeInteger(measurementsPerImage, forKey: "measurementsPerImage")
         aCoder.encodeBool(newFile, forKey: "newFile")
     }
     
