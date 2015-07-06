@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7702"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="CartDocument" customModule="Cartesianator" customModuleProvider="target">
@@ -139,8 +139,12 @@
                             <binding destination="-2" name="value" keyPath="self.currentImage" id="1kH-ca-Icu"/>
                         </connections>
                     </textField>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QcF-Nw-Flb">
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QcF-Nw-Flb">
                         <rect key="frame" x="358" y="286" width="164" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="Vwb-8u-UyY"/>
+                            <constraint firstAttribute="width" constant="152" id="p3g-S5-oWh"/>
+                        </constraints>
                         <buttonCell key="cell" type="push" title="Record measurement" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="oam-96-bSa">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -149,8 +153,12 @@
                             <action selector="recordMeasurement:" target="-2" id="POp-rc-jFD"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mkS-Ml-K9M">
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mkS-Ml-K9M">
                         <rect key="frame" x="358" y="253" width="164" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="152" id="Auf-N7-Frc"/>
+                            <constraint firstAttribute="height" constant="21" id="sSU-4r-awc"/>
+                        </constraints>
                         <buttonCell key="cell" type="push" title="Delete data" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ot9-pt-lf1">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -159,8 +167,12 @@
                             <action selector="deleteData:" target="-2" id="Kfv-UZ-4fM"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q5W-3V-nG9">
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="q5W-3V-nG9">
                         <rect key="frame" x="358" y="220" width="164" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="152" id="Yzh-Ez-Co8"/>
+                            <constraint firstAttribute="height" constant="21" id="eaC-XK-ocs"/>
+                        </constraints>
                         <buttonCell key="cell" type="push" title="Save Data as .csv" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="O2S-Sf-5SD">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -218,6 +230,7 @@
                     <constraint firstItem="8Zh-DI-wwO" firstAttribute="top" secondItem="0CS-4c-zWp" secondAttribute="bottom" constant="8" id="5IE-ZR-aux"/>
                     <constraint firstAttribute="trailing" secondItem="Zj0-P9-Kxh" secondAttribute="trailing" constant="189" id="6cs-fc-AL0"/>
                     <constraint firstAttribute="trailing" secondItem="VAI-uj-dOF" secondAttribute="trailing" constant="20" id="7Ca-dj-FaA"/>
+                    <constraint firstAttribute="trailing" secondItem="mkS-Ml-K9M" secondAttribute="trailing" constant="20" id="8av-wi-kWI"/>
                     <constraint firstAttribute="trailing" secondItem="0CS-4c-zWp" secondAttribute="trailing" constant="20" id="8he-9p-v2D"/>
                     <constraint firstItem="YXX-Do-Cmx" firstAttribute="leading" secondItem="Zj0-P9-Kxh" secondAttribute="trailing" constant="17" id="9xE-MH-3Wg"/>
                     <constraint firstAttribute="trailing" secondItem="66X-v1-DFp" secondAttribute="trailing" constant="20" id="I1C-1J-DpH"/>
@@ -225,14 +238,19 @@
                     <constraint firstItem="VAI-uj-dOF" firstAttribute="leading" secondItem="Zj0-P9-Kxh" secondAttribute="trailing" constant="17" id="JD6-p8-Cv2"/>
                     <constraint firstItem="Gnd-Qh-Zce" firstAttribute="top" secondItem="0CS-4c-zWp" secondAttribute="bottom" constant="8" id="Moi-8h-HjZ"/>
                     <constraint firstAttribute="bottom" secondItem="66X-v1-DFp" secondAttribute="bottom" constant="20" id="NPl-tf-ndA"/>
+                    <constraint firstItem="q5W-3V-nG9" firstAttribute="top" secondItem="mkS-Ml-K9M" secondAttribute="bottom" constant="12" id="Owz-QC-TmD"/>
                     <constraint firstItem="KQM-f1-V6d" firstAttribute="leading" secondItem="Zj0-P9-Kxh" secondAttribute="trailing" constant="17" id="PHZ-lb-anf"/>
+                    <constraint firstAttribute="trailing" secondItem="QcF-Nw-Flb" secondAttribute="trailing" constant="20" id="RG3-pk-Zyi"/>
                     <constraint firstItem="jXS-2R-s4c" firstAttribute="top" secondItem="YXX-Do-Cmx" secondAttribute="bottom" constant="12" id="Rr8-hT-aqj"/>
                     <constraint firstItem="YXX-Do-Cmx" firstAttribute="top" secondItem="RTV-du-y5l" secondAttribute="bottom" constant="12" id="Sg1-nf-OGQ"/>
                     <constraint firstItem="8Zh-DI-wwO" firstAttribute="leading" secondItem="Zj0-P9-Kxh" secondAttribute="trailing" constant="17" id="TgL-uJ-Nie"/>
                     <constraint firstAttribute="trailing" secondItem="YXX-Do-Cmx" secondAttribute="trailing" constant="20" id="UtL-Au-R1O"/>
                     <constraint firstAttribute="trailing" secondItem="eqe-kG-Cys" secondAttribute="trailing" constant="20" id="VFT-QH-XZF"/>
+                    <constraint firstAttribute="trailing" secondItem="q5W-3V-nG9" secondAttribute="trailing" constant="20" id="XU2-57-HWj"/>
                     <constraint firstItem="eqe-kG-Cys" firstAttribute="leading" secondItem="Gnd-Qh-Zce" secondAttribute="trailing" constant="8" id="YY6-uW-HU1"/>
+                    <constraint firstItem="QcF-Nw-Flb" firstAttribute="top" secondItem="KQM-f1-V6d" secondAttribute="bottom" constant="8" id="ajf-L7-fh9"/>
                     <constraint firstItem="66X-v1-DFp" firstAttribute="leading" secondItem="Zj0-P9-Kxh" secondAttribute="trailing" constant="17" id="bv4-GC-ZcZ"/>
+                    <constraint firstItem="mkS-Ml-K9M" firstAttribute="top" secondItem="QcF-Nw-Flb" secondAttribute="bottom" constant="12" id="daT-2G-Ob6"/>
                     <constraint firstItem="RTV-du-y5l" firstAttribute="top" secondItem="VAI-uj-dOF" secondAttribute="bottom" constant="12" id="gPF-fd-lGH"/>
                     <constraint firstAttribute="trailing" secondItem="RTV-du-y5l" secondAttribute="trailing" constant="20" id="gU9-Sk-S26"/>
                     <constraint firstAttribute="bottom" secondItem="Zj0-P9-Kxh" secondAttribute="bottom" id="gh4-L5-SuV"/>

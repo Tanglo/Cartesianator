@@ -82,6 +82,7 @@ class CartDocument: NSDocument {
                 imageView.needsDisplay = true
             }
         }
+        imageView.clearMarker()
     }
     
     @IBAction func recordMeasurement(sender: AnyObject){
@@ -113,10 +114,25 @@ class CartDocument: NSDocument {
     }
     
     @IBAction func exportDataToCSV(sender: AnyObject){
-        println("X - m = \(data.xCalCoeffs[1]), C = \(data.xCalCoeffs[0])")
-        println("X - m = \(data.yCalCoeffs[1]), C = \(data.yCalCoeffs[0)")
+        var calibrationString = "axis,gradient,offset\n"
+        calibrationString += "x,\(data.xCalCoeffs[1]),\(data.xCalCoeffs[0])\n"
+        calibrationString += "y,\(data.yCalCoeffs[1]),\(data.yCalCoeffs[0)"
+        var dataString = "trial,rawX,rawY,calibratedX,calibratedY\n"
         for i in 0..<data.measurements.count {
-            println("\(i+1). raw: \(data.measurements[i].raw.x),\(data.measurements[i].raw.y) - calibrated: \(data.measurements[i].calibrated.x),\(data.measurements[i].calibrated.y)")
+            dataString += "\(data.measurements[i].raw.x),\(data.measurements[i].raw.y),\(data.measurements[i].calibrated.x),\(data.measurements[i].calibrated.y)\n"
+        }
+        let savePanel = NSSavePanel()
+        let result = savePanel.runModal()
+        let dataPath = savePanel.URL!.path! + ".csv"
+        var writeError: NSError?
+        if !dataString.writeToFile(dataPath, atomically: true, encoding: NSUnicodeStringEncoding, error: &writeError) {
+            let errorAlert = NSAlert(error: writeError!)
+            errorAlert.runModal()
+        }
+        let calibrationPath = savePanel.URL!.path! + "_calibration.csv"
+        if !calibrationString.writeToFile(calibrationPath, atomically: true, encoding: NSUnicodeStringEncoding, error: &writeError) {
+            let errorAlert = NSAlert(error: writeError!)
+            errorAlert.runModal()
         }
     }
     
