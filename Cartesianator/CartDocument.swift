@@ -91,6 +91,7 @@ class CartDocument: NSDocument {
             let rawPoint = imageView.markerLocation
             let calibratedPoint = LBPoint(x: rawPoint.x * data.xCalCoeffs[1] + data.xCalCoeffs[0], y: rawPoint.y * data.yCalCoeffs[1] + data.yCalCoeffs[0])
             data.measurements[currentImage-1] = LBCalibratedPair(raw: rawPoint, calibrated: calibratedPoint)
+//            data.imageFilenames[currentImage-1] = fileNameField!.stringValue
             if advanceOnRecordCheckbox!.state == NSOnState {
                 self.advanceImage(self)
             }
@@ -121,22 +122,24 @@ class CartDocument: NSDocument {
         var calibrationString = "axis,gradient,offset\n"
         calibrationString += "x,\(data.xCalCoeffs[1]),\(data.xCalCoeffs[0])\n"
         calibrationString += "y,\(data.yCalCoeffs[1]),\(data.yCalCoeffs[0)"
-        var dataString = "trial,rawX,rawY,calibratedX,calibratedY\n"
+        var dataString = "trial,filename,rawX,rawY,calibratedX,calibratedY\n"
         for i in 0..<data.measurements.count {
-            dataString += "\(data.measurements[i].raw.x),\(data.measurements[i].raw.y),\(data.measurements[i].calibrated.x),\(data.measurements[i].calibrated.y)\n"
+            dataString += "\(i),\(data.imageURLArray[i].lastPathComponent!),\(data.measurements[i].raw.x),\(data.measurements[i].raw.y),\(data.measurements[i].calibrated.x),\(data.measurements[i].calibrated.y)\n"
         }
         let savePanel = NSSavePanel()
         let result = savePanel.runModal()
-        let dataPath = savePanel.URL!.path! + ".csv"
-        var writeError: NSError?
-        if !dataString.writeToFile(dataPath, atomically: true, encoding: NSUnicodeStringEncoding, error: &writeError) {
-            let errorAlert = NSAlert(error: writeError!)
-            errorAlert.runModal()
-        }
-        let calibrationPath = savePanel.URL!.path! + "_calibration.csv"
-        if !calibrationString.writeToFile(calibrationPath, atomically: true, encoding: NSUnicodeStringEncoding, error: &writeError) {
-            let errorAlert = NSAlert(error: writeError!)
-            errorAlert.runModal()
+        if result == NSModalResponseOK {
+            let dataPath = savePanel.URL!.path! + ".csv"
+            var writeError: NSError?
+            if !dataString.writeToFile(dataPath, atomically: true, encoding: NSUnicodeStringEncoding, error: &writeError) {
+                let errorAlert = NSAlert(error: writeError!)
+                errorAlert.runModal()
+            }
+            let calibrationPath = savePanel.URL!.path! + "_calibration.csv"
+            if !calibrationString.writeToFile(calibrationPath, atomically: true, encoding: NSUnicodeStringEncoding, error: &writeError) {
+                let errorAlert = NSAlert(error: writeError!)
+                errorAlert.runModal()
+            }
         }
     }
     
@@ -240,6 +243,31 @@ class CartDocument: NSDocument {
             let offset = firstCalibrationPair!.calibrated.y - gradient * firstCalibrationPair!.raw.y
             data.yCalCoeffs[0] = offset
             data.yCalCoeffs[1] = gradient
+        }
+    }
+    
+    @IBAction func importCalibration(sender: AnyObject){
+        let openPanel = NSOpenPanel()
+        openPanel.canChooseDirectories = false
+        openPanel.canChooseFiles = true
+        openPanel.allowedFileTypes = ["csv","CSV"]
+        let result = openPanel.runModal()
+        if result == NSModalResponseOK {
+            var error: NSError?
+            let calibrationString = String(contentsOfURL: openPanel.URL!, encoding: NSUnicodeStringEncoding, error: &error)
+            if error != nil {
+                let errorAlert = NSAlert(error: error!)
+                errorAlert.runModal()
+            } else {
+                let lines = calibrationString!.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: "\n"))
+                let commaSet = NSCharacterSet(charactersInString: ",")
+                let xCalibration = lines[1].componentsSeparatedByCharactersInSet(commaSet)
+                data.xCalCoeffs[0] = NSString(string: xCalibration[2]).doubleValue
+                data.xCalCoeffs[1] = NSString(string: xCalibration[1]).doubleValue
+                let yCalibration = lines[2].componentsSeparatedByCharactersInSet(commaSet)
+                data.yCalCoeffs[0] = NSString(string: yCalibration[2]).doubleValue
+                data.yCalCoeffs[1] = NSString(string: yCalibration[1]).doubleValue
+            }
         }
     }
 }
