@@ -38,6 +38,7 @@ class CartDocument: NSDocument {
             }
             data.newFile = false
         }
+        self.setDisplayName(data.imageDirectoryURL.lastPathComponent)
     }
 
     override class func autosavesInPlace() -> Bool {
