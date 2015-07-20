@@ -65,14 +65,15 @@ class CartData: NSObject, NSCoding {
                     errorAlert.runModal()
                     return nil
                 }
-                return fileList
+//                return fileList
             }
+            return fileList
         } else {
             let errorAlert = NSAlert(error: error!)
             errorAlert.runModal()
             return nil
         }
-        return nil
+//        return nil
     }
     
     override func valueForKey(key: String) -> AnyObject? {

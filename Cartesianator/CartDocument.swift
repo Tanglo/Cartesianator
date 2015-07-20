@@ -111,7 +111,7 @@ class CartDocument: NSDocument {
     func clearMeasurements() {
         let imageFilenames = data.arrayOfImageFileNames()
         if imageFilenames != nil {
-            data.measurements = [LBCalibratedPair](count: data.imageURLArray.count*data.measurementsPerImage, repeatedValue: LBCalibratedPair(raw: LBPoint(x: Double.NaN, y: Double.NaN), calibrated: LBPoint(x: Double.NaN, y: Double.NaN)))
+            data.measurements = [LBCalibratedPair](count: imageFilenames!.count*data.measurementsPerImage, repeatedValue: LBCalibratedPair(raw: LBPoint(x: Double.NaN, y: Double.NaN), calibrated: LBPoint(x: Double.NaN, y: Double.NaN)))
             var newMeasurementIndexes = [Int]()
             var newURLArray = [NSURL]()
             var currIndex = 0
